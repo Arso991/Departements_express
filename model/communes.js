@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const communeSchema = mongoose.Schema({
-    id_departement:Number,
-    id_commune:Number,
+    id_departement:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"departements"
+    },
     name:String
 });
 

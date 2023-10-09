@@ -7,7 +7,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let departementRouter = require("./routes/departements");
 let communeRouter = require("./routes/communes");
-let departementByIdRouter = require("./routes/departementById")
+let departementByIdRouter = require("./routes/departementById");
+let communeByDepartement = require("./routes/commune_of_departement");
 
 var app = express();
 
@@ -22,5 +23,6 @@ app.use('/users', usersRouter);
 app.use("/departements", departementRouter);
 app.use("/communes", communeRouter);
 app.use("/departements/:id", departementByIdRouter);
+app.use("/departements/:id/communes", communeByDepartement);
 
 module.exports = app;

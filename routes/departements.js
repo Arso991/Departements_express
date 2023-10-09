@@ -3,13 +3,16 @@ const departement = require("../model/departements")
 let router = express.Router();
 
 router.get("/", async function(req, res){
-    const depart = await departement.find();
-    res.send(depart);
+    try {
+        const depart = await departement.find();
+        if(!depart){
+            return res.status(404).json({message:"liste des départements introuvable !"});
+        }
+        res.send(depart);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des départements", error);
+        res.status(404).json("Erreur lors de la récupération des départements");
+    }
 });
-
-router.get("/:id", async function(req, res){
-    const departid = await departement.findById(req.params.id);
-    res.send(departid);
-})
 
 module.exports = router;
