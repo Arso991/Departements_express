@@ -6,7 +6,7 @@ router.get("/", async function(req, res){
     try {
         const depart = await departement.find();
         if(!depart){
-            return res.status(404).json({message:"liste des départements introuvable !"});
+            return res.status(404).json({message:"Liste des départements introuvable !"});
         }
         res.send(depart);
     } catch (error) {

@@ -3,12 +3,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-let departementRouter = require("./routes/departements");
-let communeRouter = require("./routes/communes");
-let departementByIdRouter = require("./routes/departementById");
-let communeByDepartement = require("./routes/commune_of_departement");
+//var indexRouter = require('./routes/index');
+//var usersRouter = require('./routes/users');
+let alldepartementRouter = require("./routes/departements");
+let addDepartementRouter = require("./routes/addDepartement");
+let majDepartementRouter = require("./routes/updateDepartement");
+let deleteDepartementRouter = require("./routes/deleteDepartement")
+let departementRouter = require("./routes/departementById");
+let allCommuneRouter = require("./routes/communes");
+let addCommuneRouter = require("./routes/addCommune");
+let majCommuneRouter = require("./routes/updateCommune");
+let deleteCommuneRouter = require("./routes/deleteCommune");
+let communesByDepartement = require("./routes/communesByDepartement");
+let communeRouter = require("./routes/commune");
 
 var app = express();
 
@@ -18,11 +25,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.use('/', indexRouter);
+//app.use('/users', usersRouter);
+//la liste des département
+app.use("/departements", alldepartementRouter);
+//l'ajout de département
+app.use("/departements", addDepartementRouter);
+//modification d'un département
+app.use("/departement", majDepartementRouter);
+//supprimer un département
+app.use("/departements", deleteDepartementRouter);
+//la liste des communes
+app.use("/communes", allCommuneRouter);
+//ajouter une commune
+app.use("/departements", addCommuneRouter);
+//modification de communes
+app.use("/departements", majCommuneRouter);
+//supprimer commune
+app.use("/departements", deleteCommuneRouter);
+//un département selon id
 app.use("/departements", departementRouter);
-app.use("/communes", communeRouter);
-app.use("/departements/:id", departementByIdRouter);
-app.use("/departements/:id/communes", communeByDepartement);
+//les communes  d'un département
+app.use("/departements", communesByDepartement);
+//une commune d'un département
+app.use("/departements", communeRouter);
 
 module.exports = app;
